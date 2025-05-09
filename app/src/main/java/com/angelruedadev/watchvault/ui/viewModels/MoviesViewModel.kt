@@ -28,6 +28,7 @@ class MoviesViewModel @Inject constructor(private val repository: MovieRepositor
 
     private var currentPage = 1
     private var isLastPage = false
+    private var currentQuery = ""
 
     init {
         fetchMovies()
@@ -38,16 +39,27 @@ class MoviesViewModel @Inject constructor(private val repository: MovieRepositor
 
         viewModelScope.launch {
             _isLoading.value = true
+            _error.value = null
 
             try {
-                Log.d("MOVIE", "Api call to fetch movies")
-                val newMovies = repository.getAllMovies(currentPage)
-                if (newMovies.results.isEmpty()) {
+
+                val response = if (currentQuery.isEmpty()){
+                    Log.d("MOVIE", "Api call to fetch movies")
+                    repository.getAllMovies(currentPage)
+                }else{
+                    Log.d("MOVIE", "Api call to search movies")
+                    repository.searchMovies(query = currentQuery, page = currentPage)
+                }
+
+                if (response.results.isEmpty()){
                     isLastPage = true
-                } else {
-                    val updatedList = _movies.value + newMovies.results
-                    _movies.value = updatedList
-                    currentPage++ // advance to next page
+                }else{
+                    _movies.value = if (currentPage == 1) {
+                        response.results
+                    } else {
+                        _movies.value + response.results
+                    }
+                    currentPage++
                 }
             } catch (e: Exception) {
                 _error.value = e.message
@@ -55,5 +67,19 @@ class MoviesViewModel @Inject constructor(private val repository: MovieRepositor
                 _isLoading.value = false
             }
         }
+    }
+
+    fun onSearch(query: String) {
+        val trimmedQuery = query.trim()
+        if (trimmedQuery == currentQuery) return // Avoids repeating the query
+        currentQuery = trimmedQuery
+        resetPagination()
+        fetchMovies()
+    }
+
+    private fun resetPagination() {
+        currentPage = 1
+        isLastPage = false
+        _movies.value = emptyList()
     }
 }

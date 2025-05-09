@@ -3,6 +3,7 @@ package com.angelruedadev.watchvault.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,20 +19,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.angelruedadev.watchvault.ui.viewModels.MoviesViewModel
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
@@ -44,43 +53,87 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel()) {
     val isLoading = viewModel.isLoading.collectAsState()
     val error = viewModel.error.collectAsState()
 
+    var query by rememberSaveable { mutableStateOf("") }
+
     Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
-            contentPadding = PaddingValues(16.dp)
-        ) {
-            itemsIndexed(movies.value) { index, movie ->
-                MovieItem(movie)
-
-                // Scroll infinito cuando queden 5 para el final
-                if (index >= movies.value.lastIndex - 5 && !isLoading.value) {
-                    viewModel.fetchMovies()
+        Column{
+            SearchSection(
+                query = query,
+                onQueryChange = { query = it },
+                onSearch = {
+                    viewModel.onSearch(query)
                 }
-            }
+            )
 
-            // Muestra loader al final
-            if (isLoading.value) {
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
+            LazyColumn(
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                itemsIndexed(movies.value) { index, movie ->
+                    MovieItem(movie)
+
+                    // Scroll infinito cuando queden 5 para el final
+                    if (index >= movies.value.lastIndex - 5 && !isLoading.value) {
+                        viewModel.fetchMovies()
+                    }
+                }
+
+                // Muestra loader al final
+                if (isLoading.value) {
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
                     }
                 }
             }
-        }
 
-        // Show error
-        if (error.toString().isNotEmpty() && movies.value.isEmpty()) {
-            Text(
-                text = "Error: $error",
-                color = Color.Red,
-                modifier = Modifier.align(Alignment.Center)
-            )
+            // Show error
+            if (error.value != null && movies.value.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Error: ${error.value}",
+                        color = Color.Red
+                    )
+                }
+            }
         }
     }
+}
+
+@Composable
+fun SearchSection(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    onSearch: () -> Unit
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    TextField(
+        value = query,
+        onValueChange = onQueryChange,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        placeholder = { Text("Buscar película...") },
+        singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                onSearch()
+                // Ocultar teclado si usas Accompanist o similar
+                keyboardController?.hide()
+            }
+        )
+    )
 }
 
 @Composable

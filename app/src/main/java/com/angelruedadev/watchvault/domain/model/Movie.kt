@@ -15,6 +15,4 @@ class Movie(
     @SerializedName("original_language")val originalLanguage: String,
     @SerializedName("original_title")val originalTitle: String,
     val popularity: Double,
-    val adult: Boolean,
-    val video: Boolean
 )
