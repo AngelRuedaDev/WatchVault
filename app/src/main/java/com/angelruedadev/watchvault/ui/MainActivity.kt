@@ -1,4 +1,4 @@
-package com.angelruedadev.watchvault
+package com.angelruedadev.watchvault.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.angelruedadev.watchvault.BuildConfig
+import com.angelruedadev.watchvault.ui.navigation.Navigation
 import com.angelruedadev.watchvault.ui.theme.WatchVaultTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val apiKey = BuildConfig.TMDB_API_KEY
@@ -25,13 +27,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WatchVaultTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column {
-                        Text("$apiKey")
-                        Spacer(modifier = Modifier.padding(16.dp))
-                        Text("$token")
-                    }
-                }
+                Navigation()
             }
         }
     }

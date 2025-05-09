@@ -89,4 +89,15 @@ dependencies {
     //DaggerHilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    //Navigation Compose
+    implementation(libs.androidx.navigation.compose)
+
+    //Coil
+    implementation(libs.coil.compose)
 }
