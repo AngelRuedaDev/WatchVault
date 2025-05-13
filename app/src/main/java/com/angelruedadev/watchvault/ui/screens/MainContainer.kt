@@ -9,12 +9,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.angelruedadev.watchvault.ui.navigation.BottomNavBar
 import com.angelruedadev.watchvault.ui.navigation.NavItemList
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainContainer() {
+fun MainContainer(navController: NavController) {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -26,14 +27,14 @@ fun MainContainer() {
                 onItemSelected = { index -> selectedIndex = index })
         }
     ) {
-        ContentScreen(selectedIndex)
+        ContentScreen(selectedIndex, navController)
     }
 }
 
 @Composable
-fun ContentScreen(selectedIndex: Int) {
+fun ContentScreen(selectedIndex: Int, navController: NavController) {
     when(selectedIndex){
-        0 -> MovieScreen()
+        0 -> MovieScreen(navController = navController)
         1 -> ShowsScreen()
         2 -> UserScreen()
     }

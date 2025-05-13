@@ -2,6 +2,7 @@ package com.angelruedadev.watchvault.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -42,13 +43,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.angelruedadev.watchvault.domain.model.Movie
+import com.angelruedadev.watchvault.ui.navigation.AppScreens
 
 @Composable
-fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel()) {
+fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: NavController) {
     val movies = viewModel.movies.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState()
     val error = viewModel.error.collectAsState()
@@ -69,7 +72,9 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel()) {
                 contentPadding = PaddingValues(16.dp)
             ) {
                 itemsIndexed(movies.value) { index, movie ->
-                    MovieItem(movie)
+                    MovieItem(movie){
+                        navController.navigate(route = AppScreens.DetailScreen.route + "/${movie.id}")
+                    }
 
                     // Scroll infinito cuando queden 5 para el final
                     if (index >= movies.value.lastIndex - 5 && !isLoading.value) {
@@ -137,7 +142,7 @@ fun SearchSection(
 }
 
 @Composable
-fun MovieItem(movie: Movie) {
+fun MovieItem(movie: Movie, onClick: () -> Unit) {
 
     val painter = rememberAsyncImagePainter(
         model = "https://image.tmdb.org/t/p/w185${movie.posterPath}"
@@ -147,7 +152,8 @@ fun MovieItem(movie: Movie) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardColors(

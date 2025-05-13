@@ -2,7 +2,7 @@ package com.angelruedadev.watchvault.domain.model
 
 import com.google.gson.annotations.SerializedName
 
-class Movie(
+data class Movie(
     val id: Int,
     val title: String,
     val overview: String,
