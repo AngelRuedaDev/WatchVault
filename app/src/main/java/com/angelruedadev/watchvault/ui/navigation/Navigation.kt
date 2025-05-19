@@ -7,7 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.angelruedadev.watchvault.ui.screens.MainContainer
-import com.angelruedadev.watchvault.ui.screens.DetailScreen
+import com.angelruedadev.watchvault.ui.screens.MovieDetailScreen
+import com.angelruedadev.watchvault.ui.screens.TvShowDetailScreen
 
 @Composable
 fun Navigation() {
@@ -18,11 +19,18 @@ fun Navigation() {
             MainContainer(navController)
         }
 
-        composable(route = AppScreens.DetailScreen.route + "/{id}",
+        composable(route = AppScreens.MovieDetailScreen.route + "/{id}",
             arguments = listOf(navArgument(name = "id"){type = NavType.IntType}))
         { backStackEntry ->
             val id = backStackEntry.arguments?.getInt("id") ?: 1
-            DetailScreen(id = id)
+            MovieDetailScreen(id = id)
+        }
+
+        composable(route = AppScreens.TvShowDetailScreen.route + "/{id}",
+            arguments = listOf(navArgument(name = "id"){type = NavType.IntType}))
+        { backStackEntry ->
+            val id = backStackEntry.arguments?.getInt("id") ?: 1
+            TvShowDetailScreen(id = id)
         }
     }
 }

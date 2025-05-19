@@ -35,7 +35,7 @@ fun MainContainer(navController: NavController) {
 fun ContentScreen(selectedIndex: Int, navController: NavController) {
     when(selectedIndex){
         0 -> MovieScreen(navController = navController)
-        1 -> ShowsScreen()
+        1 -> ShowsScreen(navController = navController)
         2 -> UserScreen()
     }
 }

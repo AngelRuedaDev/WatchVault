@@ -24,11 +24,6 @@ data class MovieDetails(
     @SerializedName("vote_count") val voteCount: Int
 )
 
-data class Genre(
-    val id: Int,
-    val name: String
-)
-
 data class ProductionCompany(
     val id: Int,
     @SerializedName("logo_path") val logoPath: String?,

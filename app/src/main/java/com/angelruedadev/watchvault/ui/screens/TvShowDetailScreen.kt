@@ -20,12 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.angelruedadev.watchvault.domain.model.MovieDetails
-import com.angelruedadev.watchvault.ui.viewModels.DetailViewModel
+import com.angelruedadev.watchvault.domain.model.TvShowDetail
+import com.angelruedadev.watchvault.ui.viewModels.TvShowDetailViewModel
 
 @Composable
-fun DetailScreen(id: Int, viewModel: DetailViewModel = hiltViewModel()) {
-    val detail = viewModel.movie.collectAsState()
+fun TvShowDetailScreen(id: Int, viewModel: TvShowDetailViewModel = hiltViewModel()) {
+    val detail = viewModel.tvShow.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState()
     val error = viewModel.error.collectAsState()
 
@@ -53,8 +53,8 @@ fun DetailScreen(id: Int, viewModel: DetailViewModel = hiltViewModel()) {
             }
 
             else -> {
-                detail.value?.let { movie ->
-                    Detail(movie)
+                detail.value?.let { tvShow ->
+                    Detail(tvShow)
                 } ?: run {
                     Text(
                         text = "No se pudieron cargar los detalles.",
@@ -68,14 +68,11 @@ fun DetailScreen(id: Int, viewModel: DetailViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun Detail(value: MovieDetails) {
+fun Detail(tvShow: TvShowDetail) {
     Column {
-        Text(value.title)
-        Text(value.status)
-        Text(value.releaseDate)
-        Text(value.description.toString())
-        Text(value.budget.toString())
-        Text(value.duration.toString())
+        Text(tvShow.name)
+        Text(tvShow.status!!)
+        Text(tvShow.firstAirDate!!)
+        Text(tvShow.description.toString())
     }
 }
-

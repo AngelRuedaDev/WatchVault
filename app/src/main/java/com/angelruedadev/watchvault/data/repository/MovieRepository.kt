@@ -19,4 +19,9 @@ class MovieRepository @Inject constructor(private val api: TMDbApiService) {
     suspend fun getMovieDetails(movieId: Int, language: String = "en-US"): MovieDetails {
         return api.getMovieDetails(movieId, BuildConfig.TMDB_API_KEY, language)
     }
+
+    suspend fun getMoviesByGenres(genreIds: List<Int>, page: Int): MovieResponse {
+        val genreQuery = genreIds.joinToString(",") // Coma = AND
+        return api.getMoviesByGenre(BuildConfig.TMDB_API_KEY,genreQuery, page)
+    }
 }
