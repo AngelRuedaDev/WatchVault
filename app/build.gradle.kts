@@ -1,12 +1,11 @@
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-
-    kotlin("kapt") // solo si decides usar kapt
-    alias(libs.plugins.hilt) // si usas version catalog
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 fun getApiKeyFromEnv(): String {
@@ -88,7 +87,7 @@ dependencies {
 
     //DaggerHilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     //Retrofit
@@ -100,4 +99,8 @@ dependencies {
 
     //Coil
     implementation(libs.coil.compose)
+
+    //Room
+    implementation("androidx.room:room-ktx:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1")
 }
