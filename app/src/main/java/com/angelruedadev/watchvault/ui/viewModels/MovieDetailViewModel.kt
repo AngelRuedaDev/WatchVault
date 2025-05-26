@@ -105,4 +105,28 @@ class MovieDetailViewModel @Inject constructor(private val movieRepository: Movi
             localRepository.insertMovie(updatedEntity)
         }
     }
+
+    fun rateMovie(rating: Float) {
+        viewModelScope.launch {
+            val movie = _movie.value ?: return@launch
+
+            var currentEntity = _movieEntity.value
+
+            if (currentEntity == null) {
+                currentEntity = MovieEntity(
+                    id = movie.id,
+                    title = movie.title,
+                    photoPath = movie.posterPath,
+                    userRating = (rating * 2).toInt()
+                )
+                localRepository.insertMovie(currentEntity)
+            } else {
+                val updatedEntity = currentEntity.copy(userRating = (rating * 2).toInt())
+                checkIfUpdateOrDelete(updatedEntity)
+            }
+
+            // Refresca el estado desde la base de datos
+            fetchInfoFromLocal(movie.id)
+        }
+    }
 }

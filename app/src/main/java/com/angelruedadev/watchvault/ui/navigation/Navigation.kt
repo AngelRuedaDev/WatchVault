@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.angelruedadev.watchvault.ui.screens.CollectionScreen
 import com.angelruedadev.watchvault.ui.screens.MainContainer
 import com.angelruedadev.watchvault.ui.screens.MovieDetailScreen
 import com.angelruedadev.watchvault.ui.screens.TvShowDetailScreen
@@ -31,6 +32,12 @@ fun Navigation() {
         { backStackEntry ->
             val id = backStackEntry.arguments?.getInt("id") ?: 1
             TvShowDetailScreen(id = id)
+        }
+
+        composable(route = AppScreens.CollectionScreen.route + "/{collectionName}",
+            arguments = listOf(navArgument(name = "collectionName"){type = NavType.StringType}))
+        {
+            CollectionScreen(navController = navController)
         }
     }
 }

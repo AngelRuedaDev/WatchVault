@@ -10,7 +10,7 @@ import com.angelruedadev.watchvault.data.local.entity.MovieEntity
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM movies ORDER BY title DESC")
+    @Query("SELECT * FROM movies ORDER BY title ASC")
     suspend fun getAllMovies(): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -18,6 +18,15 @@ interface MovieDao {
 
     @Query("SELECT * FROM movies WHERE id = :movieId LIMIT 1")
     suspend fun getMovieById(movieId: Int): MovieEntity?
+
+    @Query("SELECT * FROM movies WHERE is_liked = 1 ORDER BY title ASC")
+    suspend fun getLikedMovies(): List<MovieEntity>
+
+    @Query("SELECT * FROM movies WHERE is_inWatchList = 1 ORDER BY title ASC")
+    suspend fun getWatchListedMovies(): List<MovieEntity>
+
+    @Query("SELECT * FROM movies WHERE user_rating is not 0 ORDER BY title ASC")
+    suspend fun getRatedMovies(): List<MovieEntity>
 
     @Delete
     suspend fun deleteMovie(movieEntity: MovieEntity)

@@ -8,8 +8,8 @@ import com.angelruedadev.watchvault.domain.model.NavItem
 
 object NavItemList {
     val navItemList = listOf(
-        NavItem("Movies", Icons.Default.PlayArrow),
-        NavItem("TV Shows", Icons.Default.DateRange),
-        NavItem("User", Icons.Default.AccountCircle)
+        NavItem("Movies", Icons.Default.PlayArrow, AppScreens.MovieTab.route),
+        NavItem("TV Shows", Icons.Default.DateRange, AppScreens.ShowTab.route),
+        NavItem("User", Icons.Default.AccountCircle, AppScreens.UserTab.route)
     )
 }

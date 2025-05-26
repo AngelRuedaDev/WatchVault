@@ -24,4 +24,8 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideMovieDao(db: LocalDatabase)= db.getMovieDao()
+
+    @Singleton
+    @Provides
+    fun provideTvShowDao(db: LocalDatabase)= db.getTvShowDao()
 }
