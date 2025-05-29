@@ -15,8 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.angelruedadev.watchvault.R
 
 @Composable
 fun SearchSection(
@@ -24,7 +26,8 @@ fun SearchSection(
     onQueryChange: (String) -> Unit,
     onSearch: () -> Unit,
     onFilterClick: () -> Unit,
-    isIdsEmpty: Boolean
+    isIdsEmpty: Boolean,
+    onCloseSearch: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -37,12 +40,13 @@ fun SearchSection(
             onQueryChanged = onQueryChange,
             modifier = Modifier.weight(1f),
             onSearch = onSearch,
+            onCloseSearch = onCloseSearch
         )
 
         val filterIconColor = if (!isIdsEmpty) {
             Color.Red// o cualquier color que destaque
         } else {
-            MaterialTheme.colorScheme.onBackground // color por defecto
+            colorResource(R.color.white)// color por defecto
         }
 
         FilterButton(onClick = onFilterClick, tint = filterIconColor)
@@ -50,7 +54,13 @@ fun SearchSection(
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onSearch: () -> Unit, modifier: Modifier = Modifier) {
+fun SearchBar(
+    query: String,
+    onQueryChanged: (String) -> Unit,
+    onSearch: () -> Unit,
+    modifier: Modifier = Modifier,
+    onCloseSearch: () -> Unit
+) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -64,6 +74,7 @@ fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onSearch: () -> U
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
             onSearch()
+            onCloseSearch()
             keyboardController?.hide()
         }),
         colors = TextFieldDefaults.colors(

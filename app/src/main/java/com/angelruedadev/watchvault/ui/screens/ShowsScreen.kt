@@ -62,7 +62,7 @@ fun ShowsScreen(viewModel: TvShowsViewModel = hiltViewModel(), navController: Na
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
-            SearchSection(
+         /*   SearchSection(
                 query = query,
                 onQueryChange = { query = it },
                 onSearch = { viewModel.onSearch(query) },
@@ -81,7 +81,7 @@ fun ShowsScreen(viewModel: TvShowsViewModel = hiltViewModel(), navController: Na
                         showGenresDialog = false
                     }
                 )
-            }
+            }*/
 
             LazyColumn(
                 contentPadding = PaddingValues(16.dp)

@@ -101,6 +101,7 @@ dependencies {
     implementation(libs.coil.compose)
 
     //Room
-    implementation("androidx.room:room-ktx:2.7.1")
-    ksp("androidx.room:room-compiler:2.7.1")
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
 }

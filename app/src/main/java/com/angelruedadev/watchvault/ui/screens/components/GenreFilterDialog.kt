@@ -32,16 +32,20 @@ fun GenreFilterDialog(
     genres: List<Genre>,
     initialSelectedIds: List<Int>,
     onDismiss: () -> Unit,
-    onApply: (List<Int>) -> Unit
+    onApply: (List<Int>) -> Unit,
+    onCloseSearch: () -> Unit
 ) {
     var selectedIds by remember(initialSelectedIds) { mutableStateOf(initialSelectedIds) }
 
     AlertDialog(
         onDismissRequest = {
             onDismiss()
+            onCloseSearch()
         },
         confirmButton = {
-            TextButton(onClick = { onApply(selectedIds) }) {
+            TextButton(onClick = { onApply(selectedIds)
+                onCloseSearch()
+            }) {
                 Text("Apply")
             }
         },
@@ -49,6 +53,7 @@ fun GenreFilterDialog(
             TextButton(onClick = {
                 onApply(emptyList())
                 onDismiss()
+                onCloseSearch()
             }) {
                 Text("Clear")
             }

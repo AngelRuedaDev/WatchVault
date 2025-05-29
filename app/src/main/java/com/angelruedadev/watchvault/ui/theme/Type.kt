@@ -2,14 +2,19 @@ package com.angelruedadev.watchvault.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.angelruedadev.watchvault.R
 
 // Set of Material typography styles to start with
+
+val specialGothic = FontFamily(Font(R.font.special_gothic_expanded_one_regular))
+
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = specialGothic,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,

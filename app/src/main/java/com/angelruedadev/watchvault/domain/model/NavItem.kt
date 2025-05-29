@@ -3,7 +3,7 @@ package com.angelruedadev.watchvault.domain.model
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class NavItem(
-    val label: String,
-    val icon: ImageVector,
-    val route: String
+    val route: String,
+    val iconActiveRes: Int,
+    val iconInactiveRes: Int
 )

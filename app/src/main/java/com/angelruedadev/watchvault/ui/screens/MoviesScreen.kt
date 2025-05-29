@@ -1,5 +1,6 @@
 package com.angelruedadev.watchvault.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,11 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -51,16 +54,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
+import com.angelruedadev.watchvault.R
 import com.angelruedadev.watchvault.domain.model.Genre
 import com.angelruedadev.watchvault.domain.model.Movie
 import com.angelruedadev.watchvault.ui.navigation.AppScreens
 import com.angelruedadev.watchvault.ui.screens.components.GenreFilterDialog
 import com.angelruedadev.watchvault.ui.screens.components.SearchSection
+import com.angelruedadev.watchvault.ui.screens.components.TitleSection
 
 @Composable
 fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: NavController) {
@@ -72,16 +81,31 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
     var selectedGenreIds by rememberSaveable { mutableStateOf(listOf<Int>()) }
     var query by rememberSaveable { mutableStateOf("") }
     var showGenresDialog by remember { mutableStateOf(false) }
+    var isSearchClicked by remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            SearchSection(
-                query = query,
-                onQueryChange = { query = it },
-                onSearch = { viewModel.onSearch(query) },
-                onFilterClick = { showGenresDialog = true },
-                isIdsEmpty = selectedGenreIds.isEmpty()
-            )
+    Box(modifier = Modifier.fillMaxSize().background(color = colorResource(id = R.color.dark_blue))) {
+        Column(modifier = Modifier.statusBarsPadding()) {
+
+            if (isSearchClicked){
+                SearchSection(
+                    query = query,
+                    onQueryChange = { query = it },
+                    onSearch = { viewModel.onSearch(query) },
+                    onFilterClick = { showGenresDialog = true },
+                    isIdsEmpty = selectedGenreIds.isEmpty(),
+                    onCloseSearch = { isSearchClicked = false }
+                )
+            }else{
+                if (query.isNotEmpty() || selectedGenreIds.isNotEmpty()){
+                    TitleSection("movies", onSearchClick = { isSearchClicked = true }, true)
+                }else{
+                    TitleSection("movies", onSearchClick = { isSearchClicked = true }, false)
+                }
+
+            }
+
+
+            /**/
 
             if (showGenresDialog) {
                 GenreFilterDialog(
@@ -92,12 +116,13 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
                         selectedGenreIds = selected
                         viewModel.onGenresSelected(selected)
                         showGenresDialog = false
-                    }
+                    },
+                    onCloseSearch = { isSearchClicked = false }
                 )
             }
 
             LazyColumn(
-                contentPadding = PaddingValues(16.dp)
+                contentPadding = PaddingValues(0.dp)
             ) {
                 itemsIndexed(movies.value) { index, movie ->
                     MovieItem(movie) {
@@ -136,13 +161,13 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
                             imageVector = Icons.Default.Build,
                             contentDescription = "No movies",
                             modifier = Modifier.size(72.dp),
-                            tint = Color.Gray
+                            tint = colorResource(id = R.color.lime)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
                             text = "There are no movies to show!",
                             color = Color.Red,
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                 }
@@ -165,6 +190,7 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
     }
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun MovieItem(movie: Movie, onClick: () -> Unit) {
 
@@ -178,20 +204,18 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        shape = RoundedCornerShape(12.dp),
         colors = CardColors(
-            contentColor = Color.Black,
-            containerColor = Color.White,
+            contentColor = Color.White,
+            containerColor = colorResource(R.color.dark_blue),
             disabledContainerColor = Color.Red,
             disabledContentColor = Color.Red
         )
     ) {
-        Row(modifier = Modifier.padding(8.dp)) {
+        Row(modifier = Modifier.fillMaxSize().padding(8.dp)) {
             Box(
                 modifier = Modifier
-                    .size(100.dp)
-                    .clip(RoundedCornerShape(8.dp)),
+                    .width(90.dp)
+                    .height(128.dp),
                 contentAlignment = Alignment.Center
             ) {
                 if (imageState is AsyncImagePainter.State.Loading) {
@@ -202,20 +226,57 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
                     painter = painter,
                     contentDescription = movie.title,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.matchParentSize()
+                    modifier = Modifier
+                        .width(90.dp)
+                        .height(128.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(10.dp))
 
-            Text(
-                text = movie.title,
-                style = MaterialTheme.typography.titleMedium,
+            Column(
                 modifier = Modifier
-                    .align(Alignment.CenterVertically)
-            )
+                    .fillMaxHeight()
+                    .weight(1f).padding(start = 20.dp)
+            ) {
+                Text(
+                    text = movie.title,
+                    color = colorResource(R.color.lime),
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = movie.releaseDate.take(4),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter  = painterResource(id = R.drawable.ic_rating),
+                        contentDescription = "Star Icon",
+                        tint = colorResource(R.color.lime),
+                        modifier = Modifier.size(15.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = String.format("%.2f", movie.voteAverage),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
         }
     }
+
+    Spacer(modifier = Modifier.fillMaxWidth().height(1.dp).background(colorResource(R.color.lime)))
 }
 
 
