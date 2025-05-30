@@ -10,14 +10,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.angelruedadev.watchvault.domain.model.NavItem
 import androidx.compose.foundation.layout.size
-import androidx.compose.ui.res.colorResource
-import com.angelruedadev.watchvault.R
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.zIndex

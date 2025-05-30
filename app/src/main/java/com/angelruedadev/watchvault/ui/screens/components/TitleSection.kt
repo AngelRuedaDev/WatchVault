@@ -42,7 +42,7 @@ fun TitleSection(title: String, onSearchClick: () -> Unit, isFiltered: Boolean){
     Row(modifier = Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 32.sp),
+            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 30.sp),
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.weight(1f))
