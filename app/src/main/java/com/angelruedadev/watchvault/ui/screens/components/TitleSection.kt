@@ -17,7 +17,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
@@ -46,13 +45,22 @@ fun TitleSection(title: String, onSearchClick: () -> Unit, isFiltered: Boolean){
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.weight(1f))
-        Icon(
-            painter  = painterResource(id = R.drawable.ic_search_icon),
-            contentDescription = "search Icon",
-            tint = colorResource(R.color.white),
-            modifier = Modifier.padding(end = 8.dp).size(25.dp).clickable { onSearchClick() },
 
-        )
+        if (isFiltered){
+            Icon(
+                painter  = painterResource(id = R.drawable.ic_search_applied),
+                contentDescription = "search Icon",
+                tint = Color.Unspecified,
+                modifier = Modifier.padding(end = 8.dp).size(25.dp).clickable { onSearchClick() }
+            )
+        }else{
+            Icon(
+                painter  = painterResource(id = R.drawable.ic_search),
+                contentDescription = "search Icon",
+                tint = colorResource(R.color.white),
+                modifier = Modifier.padding(end = 8.dp).size(25.dp).clickable { onSearchClick() }
+            )
+        }
 
     }
 

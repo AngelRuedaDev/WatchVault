@@ -11,6 +11,8 @@ import com.angelruedadev.watchvault.R
 // Set of Material typography styles to start with
 
 val specialGothic = FontFamily(Font(R.font.special_gothic_expanded_one_regular))
+val epilogueRegular = FontFamily(Font(R.font.epilogue_regular))
+val epilogueBold = FontFamily(Font(R.font.epilogue_bold))
 
 val Typography = Typography(
     bodyLarge = TextStyle(
@@ -19,7 +21,23 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
+    ),
+
+    bodySmall = TextStyle(
+        fontFamily = epilogueRegular,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+
+    bodyMedium = TextStyle(
+        fontFamily = epilogueBold,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

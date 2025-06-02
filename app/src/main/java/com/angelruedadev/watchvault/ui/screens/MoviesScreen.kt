@@ -54,6 +54,13 @@ import com.angelruedadev.watchvault.ui.navigation.AppScreens
 import com.angelruedadev.watchvault.ui.screens.components.GenreFilterDialog
 import com.angelruedadev.watchvault.ui.screens.components.SearchSection
 import com.angelruedadev.watchvault.ui.screens.components.TitleSection
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.graphicsLayer
+import android.os.Build
+import androidx.compose.ui.graphics.asComposeRenderEffect
 
 @Composable
 fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: NavController) {
@@ -67,7 +74,21 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
     var showGenresDialog by remember { mutableStateOf(false) }
     var isSearchClicked by remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize().background(color = colorResource(id = R.color.dark_blue))) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.dark_blue))
+            .then(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && showGenresDialog) {
+                    Modifier.graphicsLayer {
+                        renderEffect = RenderEffect
+                            .createBlurEffect(10f, 10f, Shader.TileMode.CLAMP)
+                            .asComposeRenderEffect()
+                    }
+                } else Modifier
+            )
+    ) {
         Column(modifier = Modifier.statusBarsPadding()) {
 
             if (isSearchClicked){
@@ -117,6 +138,10 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
                     if (index >= movies.value.lastIndex - 5 && !isLoading.value) {
                         viewModel.fetchMovies()
                     }
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(115.dp)) // Usa la altura de tu BottomNavigationBar
                 }
 
                 // Muestra loader al final

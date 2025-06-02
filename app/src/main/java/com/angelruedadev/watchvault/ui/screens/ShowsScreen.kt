@@ -1,6 +1,10 @@
 package com.angelruedadev.watchvault.ui.screens
 
 import android.annotation.SuppressLint
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.os.Build
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,6 +43,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asComposeRenderEffect
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -69,7 +75,20 @@ fun ShowsScreen(viewModel: TvShowsViewModel = hiltViewModel(), navController: Na
     var showGenresDialog by remember { mutableStateOf(false) }
     var isSearchClicked by remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize().background(color = colorResource(id = R.color.dark_blue))) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.dark_blue))
+            .then(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && showGenresDialog) {
+                    Modifier.graphicsLayer {
+                        renderEffect = RenderEffect
+                            .createBlurEffect(10f, 10f, Shader.TileMode.CLAMP)
+                            .asComposeRenderEffect()
+                    }
+                } else Modifier
+            )
+    ) {
         Column(modifier = Modifier.statusBarsPadding()) {
 
             if (isSearchClicked){
@@ -117,6 +136,10 @@ fun ShowsScreen(viewModel: TvShowsViewModel = hiltViewModel(), navController: Na
                     }
                 }
 
+                item {
+                    Spacer(modifier = Modifier.height(115.dp)) // Usa la altura de tu BottomNavigationBar
+                }
+
                 // Muestra loader al final
                 if (isLoading.value) {
                     item {
@@ -131,6 +154,7 @@ fun ShowsScreen(viewModel: TvShowsViewModel = hiltViewModel(), navController: Na
                     }
                 }
             }
+
 
             if (tvShows.value.isEmpty() && !isLoading.value) {
                 Box(
@@ -168,6 +192,8 @@ fun ShowsScreen(viewModel: TvShowsViewModel = hiltViewModel(), navController: Na
                     )
                 }
             }
+
+
         }
     }
 }
@@ -233,7 +259,7 @@ fun TvShowItem(tvShow: TvShow, onClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = tvShow.firstAirDate.take(4),
+                    text = tvShow.firstAirDate ,
                     style = MaterialTheme.typography.bodyLarge
                 )
 
