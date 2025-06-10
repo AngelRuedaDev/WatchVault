@@ -17,14 +17,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CollectionViewModel @Inject constructor(private val localRepository: LocalRepository, val savedStateHandle: SavedStateHandle) : ViewModel(){
-    private val _collectionItem = MutableStateFlow<List<CollectionItemData>>(emptyList())
-    val collectionItem: StateFlow<List<CollectionItemData>> = _collectionItem
+    private val _collectionItems = MutableStateFlow<List<CollectionItemData>>(emptyList())
+    val collectionItems: StateFlow<List<CollectionItemData>> = _collectionItems
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
+
+    private var originalCollectionItems: List<CollectionItemData> = emptyList()
 
     init {
         val collectionName = savedStateHandle.get<String>("collectionName") ?: ""
@@ -45,7 +47,8 @@ class CollectionViewModel @Inject constructor(private val localRepository: Local
             _isLoading.value = true
             try {
                 val response = localRepository.getLikedMovies()
-                _collectionItem.value = response
+                originalCollectionItems = response
+                _collectionItems.value = response
 
             }catch(e: Exception){
                 _error.value = e.localizedMessage ?: "Unknown error"
@@ -60,7 +63,8 @@ class CollectionViewModel @Inject constructor(private val localRepository: Local
             _isLoading.value = true
             try {
                 val response = localRepository.getWatchListedMovies()
-                _collectionItem.value = response
+                originalCollectionItems = response
+                _collectionItems.value = response
 
             }catch(e: Exception){
                 _error.value = e.localizedMessage ?: "Unknown error"
@@ -75,7 +79,8 @@ class CollectionViewModel @Inject constructor(private val localRepository: Local
             _isLoading.value = true
             try {
                 val response = localRepository.getRatedMovies()
-                _collectionItem.value = response
+                originalCollectionItems = response
+                _collectionItems.value = response
 
             }catch(e: Exception){
                 _error.value = e.localizedMessage ?: "Unknown error"
@@ -90,7 +95,8 @@ class CollectionViewModel @Inject constructor(private val localRepository: Local
             _isLoading.value = true
             try {
                 val response = localRepository.getLikedTvShows()
-                _collectionItem.value = response
+                originalCollectionItems = response
+                _collectionItems.value = response
 
             }catch(e: Exception){
                 _error.value = e.localizedMessage ?: "Unknown error"
@@ -105,7 +111,8 @@ class CollectionViewModel @Inject constructor(private val localRepository: Local
             _isLoading.value = true
             try {
                 val response = localRepository.getWatchListedTvShows()
-                _collectionItem.value = response
+                originalCollectionItems = response
+                _collectionItems.value = response
 
             }catch(e: Exception){
                 _error.value = e.localizedMessage ?: "Unknown error"
@@ -120,13 +127,32 @@ class CollectionViewModel @Inject constructor(private val localRepository: Local
             _isLoading.value = true
             try {
                 val response = localRepository.getRatedTvShows()
-                _collectionItem.value = response
+                originalCollectionItems = response
+                _collectionItems.value = response
 
             }catch(e: Exception){
                 _error.value = e.localizedMessage ?: "Unknown error"
             }finally {
                 _isLoading.value = false
             }
+        }
+    }
+
+    fun sortList(sortBy: String){
+        when(sortBy){
+            "titleAsc" -> {
+                _collectionItems.value = _collectionItems.value.sortedBy { it.title }
+            }
+            "titleDesc" -> {
+                _collectionItems.value = _collectionItems.value.sortedByDescending { it.title }
+            }
+            "ratingAsc" -> {
+                _collectionItems.value = _collectionItems.value.sortedBy { it.userRating }
+            }
+            "ratingDesc" -> {
+                _collectionItems.value = _collectionItems.value.sortedByDescending { it.userRating }
+            }
+            "default" -> _collectionItems.value = originalCollectionItems
         }
     }
 }

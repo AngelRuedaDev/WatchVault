@@ -20,13 +20,13 @@ interface TvShowDao{
     @Query("SELECT * FROM tv_shows WHERE id = :tvShowId LIMIT 1")
     suspend fun getTvShowById(tvShowId: Int): TvShowEntity?
 
-    @Query("SELECT * FROM tv_shows WHERE is_liked = 1 ORDER BY title ASC")
+    @Query("SELECT * FROM tv_shows WHERE is_liked = 1")
     suspend fun getLikedTvShows(): List<TvShowEntity>
 
-    @Query("SELECT * FROM tv_shows WHERE is_inWatchList = 1 ORDER BY title ASC")
+    @Query("SELECT * FROM tv_shows WHERE is_inWatchList = 1")
     suspend fun getWatchListedTvShows(): List<TvShowEntity>
 
-    @Query("SELECT * FROM tv_shows WHERE user_rating is not 0 ORDER BY title ASC")
+    @Query("SELECT * FROM tv_shows WHERE user_rating is not 0")
     suspend fun getRatedTvShows(): List<TvShowEntity>
 
     @Delete

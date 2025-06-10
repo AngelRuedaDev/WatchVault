@@ -42,11 +42,12 @@ import com.angelruedadev.watchvault.data.local.entity.CollectionItemData
 import com.angelruedadev.watchvault.data.local.entity.MovieEntity
 import com.angelruedadev.watchvault.data.local.entity.TvShowEntity
 import com.angelruedadev.watchvault.ui.navigation.AppScreens
+import com.angelruedadev.watchvault.ui.screens.components.TitleSectionCollection
 import com.angelruedadev.watchvault.ui.viewModels.CollectionViewModel
 
 @Composable
 fun CollectionScreen(navController: NavController, viewModel: CollectionViewModel = hiltViewModel()) {
-    val collection = viewModel.collectionItem.collectAsState()
+    val collection = viewModel.collectionItems.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState()
     val error = viewModel.error.collectAsState()
 
@@ -54,6 +55,14 @@ fun CollectionScreen(navController: NavController, viewModel: CollectionViewMode
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
+
+            TitleSectionCollection(
+                title = collectionName,
+                onSortSelected = { sortType ->
+                    viewModel.sortList(sortType)
+                }
+            )
+
             LazyColumn(
                 contentPadding = PaddingValues(16.dp)
             ) {

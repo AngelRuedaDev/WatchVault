@@ -12,5 +12,5 @@ data class TvShowEntity(
     @ColumnInfo(name = "photo_path")override val photoPath: String?,
     @ColumnInfo(name = "is_liked") var isLiked: Boolean = false,
     @ColumnInfo(name = "is_inWatchList") var isInWatchList: Boolean = false,
-    @ColumnInfo(name = "user_rating") var userRating: Int = 0,
+    @ColumnInfo(name = "user_rating") override var userRating: Int = 0,
 ): CollectionItemData
