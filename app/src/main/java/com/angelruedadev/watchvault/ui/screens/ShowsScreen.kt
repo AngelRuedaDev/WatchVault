@@ -269,7 +269,7 @@ fun TvShowItem(tvShow: TvShow, onClick: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        painter  = painterResource(id = R.drawable.ic_rating),
+                        painter  = painterResource(id = R.drawable.ic_star_filled),
                         contentDescription = "Star Icon",
                         tint = colorResource(R.color.lime),
                         modifier = Modifier.size(15.dp)

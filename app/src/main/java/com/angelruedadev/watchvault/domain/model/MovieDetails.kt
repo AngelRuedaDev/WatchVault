@@ -12,7 +12,7 @@ data class MovieDetails(
     @SerializedName("overview")val description: String?,
     val popularity: Double,
     @SerializedName("poster_path") val posterPath: String?,
-    @SerializedName("production_companies") val productionCompanies: List<ProductionCompany>,
+    @SerializedName("production_companies") val productionCompanies: List<ProductionCompanyMovie>,
     @SerializedName("production_countries") val productionCountries: List<ProductionCountry>,
     @SerializedName("release_date") val releaseDate: String,
     val revenue: Long,
@@ -24,7 +24,7 @@ data class MovieDetails(
     @SerializedName("vote_count") val voteCount: Int
 )
 
-data class ProductionCompany(
+data class ProductionCompanyMovie(
     val id: Int,
     @SerializedName("logo_path") val logoPath: String?,
     val name: String,

@@ -18,7 +18,7 @@ data class TvShowDetail(
     @SerializedName("number_of_seasons") val numberOfSeasons: Int,
     @SerializedName("original_language") val originalLanguage: String?,
     val popularity: Double,
-    @SerializedName("production_companies") val productionCompanies: List<ProductionCompany>?,
+    @SerializedName("production_companies") val productionCompanies: List<ProductionCompanyTvShow>?,
     val seasons: List<Season>?,
     val status: String?,
     @SerializedName("vote_average") val voteAverage: Double,
@@ -39,4 +39,11 @@ data class Season(
     @SerializedName("overview") val description: String?,
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("vote_average") val voteAverage: Double?,
+)
+
+data class ProductionCompanyTvShow(
+    val id: Int,
+    @SerializedName("logo_path") val logoPath: String?,
+    val name: String,
+    @SerializedName("origin_country") val originCountry: String
 )

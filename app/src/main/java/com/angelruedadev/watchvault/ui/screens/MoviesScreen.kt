@@ -110,8 +110,6 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
             }
 
 
-            /**/
-
             if (showGenresDialog) {
                 GenreFilterDialog(
                     genres = genres.value,
@@ -270,7 +268,7 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        painter  = painterResource(id = R.drawable.ic_rating),
+                        painter  = painterResource(id = R.drawable.ic_star_filled),
                         contentDescription = "Star Icon",
                         tint = colorResource(R.color.lime),
                         modifier = Modifier.size(15.dp)

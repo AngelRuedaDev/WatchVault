@@ -32,12 +32,12 @@ class CollectionViewModel @Inject constructor(private val localRepository: Local
         val collectionName = savedStateHandle.get<String>("collectionName") ?: ""
 
         when(collectionName){
-            "MoviesLikes" -> getLikedMovies()
-            "MoviesWatchlist" -> getWatchListedMovies()
-            "MoviesRated" -> getRatedMovies()
-            "TvShowsLikes" -> getLikedTvShows()
-            "TvShowsWatchlist" -> getWatchListedTvShows()
-            "TvShowsRated" -> getRatedTvShows()
+            "moviesLikes" -> getLikedMovies()
+            "moviesWatchlist" -> getWatchListedMovies()
+            "moviesRated" -> getRatedMovies()
+            "TV seriesLikes" -> getLikedTvShows()
+            "TV seriesWatchlist" -> getWatchListedTvShows()
+            "TV seriesRated" -> getRatedTvShows()
         }
     }
 
