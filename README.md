@@ -4,7 +4,7 @@
 
 ## 📱 Overview
 
-This app lets users search for titles, view detailed information, and organize content into custom collections like *Watchlist*, *Liked*, and *Rated*. It's ideal for movie and TV enthusiasts who want a clean, personalized tracking experience.
+**WatchVault** lets users search for titles, view detailed information, and organize content into custom collections like *Watchlist*, *Liked*, and *Rated*. It's ideal for movie and TV enthusiasts who want a clean, personalized tracking experience.
 
 ## ⚙️ Tech Stack
 
@@ -61,7 +61,7 @@ WatchVault uses the [TMDB API](https://developer.themoviedb.org/) to retrieve co
 
 ## 📸 Screenshots
 
-*(You can add screenshots or demo GIFs here to showcase the app.)*
+*(add screenshots or demo GIFs here to showcase the app.)*
 
 ## 🎥 Demo Video
 
