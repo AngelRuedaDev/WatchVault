@@ -61,6 +61,18 @@ WatchVault uses the [TMDB API](https://developer.themoviedb.org/) to retrieve co
 
 ## 📸 Screenshots
 
+<p align="center">
+  <img src="./screenshoots/movies_list.png" alt="Imagen 1" width="200" style="margin-right: 25px"/>
+  <img src="./screenshoots/movei_detail_5stars.png" alt="Imagen 2" width="200" style="margin-right: 25px"/>
+  <img src="./screenshoots/movie_filter.png" alt="Imagen 3" width="200">
+</p>
+
+<p align="center">
+  <img src="./screenshoots/movie_rating.png" alt="Image 4" width="200" style="margin-right: 15px"/>
+  <img src="./screenshoots/user_collections.png" alt="Image 5" width="200" style="margin-right: 15px"/>
+  <img src="./screenshoots/collection_liked.png" alt="Image 6" width="200">
+</p>
+
 ## 🎥 Demo Video
 
 [Watch the demo on YouTube](https://youtu.be/AKlzW33MWp4)
