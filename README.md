@@ -61,17 +61,17 @@ WatchVault uses the [TMDB API](https://developer.themoviedb.org/) to retrieve co
 
 ## 📸 Screenshots
 
-*(add screenshots or demo GIFs here to showcase the app.)*
-
 ## 🎥 Demo Video
 
-[Watch the demo on YouTube](https://youtu.be/tu_video_id)
+[Watch the demo on YouTube](https://youtu.be/AKlzW33MWp4)
 
 ## 💚 Acknowledgements
 
 Thank you to the [TMDB](https://www.themoviedb.org/) community for their amazing API.
 
 This app was inspired by applications like **Letterboxd**.
+
+Also huge thanks to [Helena Marti](https://www.behance.net/helenamartibarragan) for the amazing interface and logo design, make sure you follow her on [behance](https://www.behance.net/helenamartibarragan).
 
 ## 📄 License
 
