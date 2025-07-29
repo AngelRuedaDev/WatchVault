@@ -259,7 +259,7 @@ fun TvShowItem(tvShow: TvShow, onClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = tvShow.firstAirDate ,
+                    text = tvShow.firstAirDate.take(4),
                     style = MaterialTheme.typography.bodyLarge
                 )
 

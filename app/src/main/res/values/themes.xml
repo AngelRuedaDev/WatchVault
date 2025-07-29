@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <style name="Theme.App.Start" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">300</item>
+        <item name="windowSplashScreenBackground">@color/dark_blue</item>
+        <item name="postSplashScreenTheme">@style/Theme.WatchVault</item>
+    </style>
+    
+    
     <style name="Theme.WatchVault" parent="android:Theme.Material.Light.NoActionBar"/>
 </resources>
