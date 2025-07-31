@@ -56,8 +56,6 @@ import com.angelruedadev.watchvault.ui.screens.components.SearchSection
 import com.angelruedadev.watchvault.ui.screens.components.TitleSection
 import android.graphics.RenderEffect
 import android.graphics.Shader
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.graphicsLayer
 import android.os.Build
 import androidx.compose.ui.graphics.asComposeRenderEffect
@@ -132,17 +130,17 @@ fun MovieScreen(viewModel: MoviesViewModel = hiltViewModel(), navController: Nav
                         navController.navigate(route = AppScreens.MovieDetailScreen.route + "/${movie.id}")
                     }
 
-                    // Scroll infinito cuando queden 5 para el final
+                    // Infinite Scroll when there are 5 items left on the list
                     if (index >= movies.value.lastIndex - 5 && !isLoading.value) {
                         viewModel.fetchMovies()
                     }
                 }
 
                 item {
-                    Spacer(modifier = Modifier.height(115.dp)) // Usa la altura de tu BottomNavigationBar
+                    Spacer(modifier = Modifier.height(115.dp)) // Uses the height of the bottom nav bar
                 }
 
-                // Muestra loader al final
+                // Show loader
                 if (isLoading.value) {
                     item {
                         Box(

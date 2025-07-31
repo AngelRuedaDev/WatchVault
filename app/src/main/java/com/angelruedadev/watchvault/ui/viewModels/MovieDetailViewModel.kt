@@ -67,7 +67,7 @@ class MovieDetailViewModel @Inject constructor(private val movieRepository: Movi
                 checkIfUpdateOrDelete(updatedEntity)
             }
 
-            // Refresca el estado desde la base de datos
+            // Refresh the state from the local database
             fetchInfoFromLocal(movie.id)
         }
     }
@@ -91,7 +91,7 @@ class MovieDetailViewModel @Inject constructor(private val movieRepository: Movi
                 checkIfUpdateOrDelete(updatedEntity)
             }
 
-            // Refresca el estado desde la base de datos
+            // Refresh the state from the local database
             fetchInfoFromLocal(movie.id)
         }
     }
@@ -125,7 +125,7 @@ class MovieDetailViewModel @Inject constructor(private val movieRepository: Movi
                 checkIfUpdateOrDelete(updatedEntity)
             }
 
-            // Refresca el estado desde la base de datos
+            // Refresh the state from the local database
             fetchInfoFromLocal(movie.id)
         }
     }

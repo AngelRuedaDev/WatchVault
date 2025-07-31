@@ -1,14 +1,10 @@
 package com.angelruedadev.watchvault.ui.viewModels
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angelruedadev.watchvault.data.local.entity.CollectionItemData
-import com.angelruedadev.watchvault.data.local.entity.MovieEntity
 import com.angelruedadev.watchvault.data.repository.LocalRepository
-import com.angelruedadev.watchvault.data.repository.MovieRepository
-import com.angelruedadev.watchvault.domain.model.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

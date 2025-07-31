@@ -1,7 +1,7 @@
 package com.angelruedadev.watchvault.ui.screens.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,28 +15,21 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderColors
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
@@ -52,6 +45,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 
+@SuppressLint("DefaultLocale")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RateDialog(
@@ -60,8 +54,8 @@ fun RateDialog(
     onConfirm: (Float) -> Unit
 ) {
     val steps = listOf(0f, 0.5f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f, 4.5f, 5f)
-    var sliderValue by remember { mutableStateOf(currentRating.coerceIn(0f, 5f)) }
-    var sliderWidth by remember { mutableStateOf(0f) }
+    var sliderValue by remember { mutableFloatStateOf(currentRating.coerceIn(0f, 5f)) }
+    var sliderWidth by remember { mutableFloatStateOf(0f) }
 
     Dialog(onDismissRequest = onDismiss) {
         Box(
@@ -98,7 +92,7 @@ fun RateDialog(
 
                 Spacer(modifier = Modifier.height(42.dp))
 
-                // Slider y burbuja
+                // Slide and bubble
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -128,21 +122,21 @@ fun RateDialog(
                                     .size(14.dp)
                                     .border(1.dp, Color(0xFFCBFF00), shape = RectangleShape)
                                     .background(Color.Transparent)
-                                    .align(Alignment.Center) // <- Esto alinea el thumb al centro vertical
+                                    .align(Alignment.Center)
                             )
                         }
                     )
 
-                    // Cálculo dinámico para centrar la burbuja sobre el thumb
+                    // Dynamic calculations to center the bubble
                     val bubbleOffset: Dp = with(LocalDensity.current) {
                         val thumbPercent = sliderValue / 5f
                         val horizontalPadding = 24.dp.toPx()
                         val availableWidth = sliderWidth - horizontalPadding * 2
                         val thumbX = horizontalPadding + (availableWidth * thumbPercent)
-                        (thumbX - 30.dp.toPx()).coerceIn(0f, sliderWidth).toDp() // centro burbuja
+                        (thumbX - 30.dp.toPx()).coerceIn(0f, sliderWidth).toDp()
                     }
 
-                    // Burbuja flotante
+                    // Floating bubble
                     Box(
                         modifier = Modifier
                             .offset(x = bubbleOffset, y = (-15).dp)

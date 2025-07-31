@@ -1,5 +1,3 @@
-@file:Suppress("IMPLICIT_CAST_TO_ANY")
-
 package com.angelruedadev.watchvault.ui.screens
 
 import androidx.compose.foundation.Image

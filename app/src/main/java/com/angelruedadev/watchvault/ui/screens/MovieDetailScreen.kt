@@ -30,13 +30,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -128,7 +121,7 @@ fun MovieDetailScreen(id: Int, viewModel: MovieDetailViewModel = hiltViewModel()
                         )
                     } ?: run {
                         Text(
-                            text = "No se pudieron cargar los detalles.",
+                            text = "There was an error loading the information.",
                             color = Color.Red,
                             modifier = Modifier.align(Alignment.Center)
                         )
@@ -594,7 +587,7 @@ fun MovieBanner(movie: MovieDetails, movieLocal: MovieEntity?) {
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                RatingStars(rating = (movieLocal.userRating ?: 0) / 2f)
+                RatingStars(rating = (movieLocal.userRating) / 2f)
             }
         }
     }

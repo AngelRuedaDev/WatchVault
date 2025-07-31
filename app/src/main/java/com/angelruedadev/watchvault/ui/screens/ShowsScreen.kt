@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,12 +22,10 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -130,17 +127,17 @@ fun ShowsScreen(viewModel: TvShowsViewModel = hiltViewModel(), navController: Na
                         navController.navigate(route = AppScreens.TvShowDetailScreen.route + "/${tvShow.id}")
                     }
 
-                    // Scroll infinito cuando queden 5 para el final
+                    // infinite scroll when there are 5 items left
                     if (index >= tvShows.value.lastIndex - 5 && !isLoading.value) {
                         viewModel.fetchTvShows()
                     }
                 }
 
                 item {
-                    Spacer(modifier = Modifier.height(115.dp)) // Usa la altura de tu BottomNavigationBar
+                    Spacer(modifier = Modifier.height(115.dp)) // Uses the height of the bottom nav bar
                 }
 
-                // Muestra loader al final
+                // Show loader
                 if (isLoading.value) {
                     item {
                         Box(

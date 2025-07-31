@@ -1,9 +1,6 @@
 package com.angelruedadev.watchvault.ui.viewModels
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angelruedadev.watchvault.data.repository.AssetsRepository
@@ -54,7 +51,7 @@ class MoviesViewModel @Inject constructor(private val movieRepository: MovieRepo
 
                 val response = when {
                     currentQuery.isNotEmpty() && _selectedGenres.value.isNotEmpty() -> {
-                        Log.d("Movie", "${_selectedGenres.value.toString()} $currentQuery")
+                        Log.d("Movie", "${_selectedGenres.value} $currentQuery")
 
                         val searchResponse = movieRepository.searchMovies(query = currentQuery, page = currentPage)
                         searchResponse.copy(results = filterResults(searchResponse.results))
@@ -92,7 +89,7 @@ class MoviesViewModel @Inject constructor(private val movieRepository: MovieRepo
 
     private fun filterResults(results: List<Movie>): List<Movie> {
         return results.filter { movie ->
-            val genres = movie.genreIds ?: emptyList()
+            val genres = movie.genreIds
             _selectedGenres.value.all { genreId -> genres.contains(genreId) }
         }
     }

@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
             WatchVaultTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(R.color.transparent),// aquí también transparente
+                    color = colorResource(R.color.transparent),
                 ) {
                     Navigation()
                 }

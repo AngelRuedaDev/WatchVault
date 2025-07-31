@@ -2,9 +2,7 @@ package com.angelruedadev.watchvault.ui.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -16,8 +14,6 @@ import androidx.compose.ui.unit.dp
 import com.angelruedadev.watchvault.domain.model.NavItem
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.zIndex
 
 @Composable
 fun BottomNavBar(

@@ -66,7 +66,7 @@ class TvShowDetailViewModel @Inject constructor(private val tvShowRepository: Tv
                 checkIfUpdateOrDelete(updatedEntity)
             }
 
-            // Refresca el estado desde la base de datos
+            // Refresh the state from the local database
             fetchInfoFromLocal(tvShow.id)
         }
     }
@@ -90,7 +90,7 @@ class TvShowDetailViewModel @Inject constructor(private val tvShowRepository: Tv
                 checkIfUpdateOrDelete(updatedEntity)
             }
 
-            // Refresca el estado desde la base de datos
+            // Refresh the state from the local database
             fetchInfoFromLocal(tvShow.id)
         }
     }
@@ -124,7 +124,7 @@ class TvShowDetailViewModel @Inject constructor(private val tvShowRepository: Tv
                 checkIfUpdateOrDelete(updatedEntity)
             }
 
-            // Refresca el estado desde la base de datos
+            // Refresh the state from the local database
             fetchInfoFromLocal(tvShow.id)
         }
     }

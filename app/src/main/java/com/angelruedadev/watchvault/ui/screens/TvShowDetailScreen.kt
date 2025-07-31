@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -67,7 +66,6 @@ import com.angelruedadev.watchvault.domain.model.Created
 import com.angelruedadev.watchvault.domain.model.TvShowDetail
 import com.angelruedadev.watchvault.ui.screens.components.RateDialog
 import com.angelruedadev.watchvault.ui.viewModels.TvShowDetailViewModel
-import androidx.compose.material.icons.filled.*
 import android.os.Build
 import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
@@ -127,7 +125,7 @@ fun TvShowDetailScreen(id: Int, viewModel: TvShowDetailViewModel = hiltViewModel
                         )
                     } ?: run {
                         Text(
-                            text = "No se pudieron cargar los detalles.",
+                            text = "There was an error loading the information.",
                             color = Color.Red,
                             modifier = Modifier.align(Alignment.Center)
                         )
@@ -430,14 +428,14 @@ fun TvShowSeasons(tvShow: TvShowDetail) {
                 if (isExpanded) {
                     Spacer(modifier = Modifier.height(15.dp))
 
-                    Row() {
+                    Row {
                         Image(
                             painter = seasonPoster,
                             contentDescription = season.name,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .width(70.dp)
-                                .height(105.dp) // o aspectRatio(2f / 3f)
+                                .height(105.dp)
                         )
 
                         Column(modifier = Modifier.padding(start = 15.dp).weight(1f)) {
@@ -664,7 +662,7 @@ fun TvShowBanner(tvShow: TvShowDetail, tvShowLocal: TvShowEntity?) {
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                RatingStars(rating = (tvShowLocal.userRating ?: 0) / 2f)
+                RatingStars(rating = (tvShowLocal.userRating) / 2f)
             }
         }
     }

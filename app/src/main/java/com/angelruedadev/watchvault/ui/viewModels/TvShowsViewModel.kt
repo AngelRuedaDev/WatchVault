@@ -87,7 +87,7 @@ class TvShowsViewModel @Inject constructor (private val tvShowRepository: TvShow
 
     private fun filterResults(results: List<TvShow>): List<TvShow>{
         return  results.filter { tvShow ->
-            val genres = tvShow.genreIds ?: emptyList()
+            val genres = tvShow.genreIds
             _selectedGenres.value.all { genreId -> genres.contains(genreId) }
         }
     }
