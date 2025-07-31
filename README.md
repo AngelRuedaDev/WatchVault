@@ -61,6 +61,18 @@ WatchVault uses the [TMDB API](https://developer.themoviedb.org/) to retrieve co
 
 ## 📸 Screenshots
 
+<p align="center">
+  <img src="./screenshoots/movies_list.png" alt="Imagen 1" width="200" style="margin-right: 25px"/>
+  <img src="./screenshoots/movei_detail_5stars.png" alt="Imagen 2" width="200" style="margin-right: 25px"/>
+  <img src="./screenshoots/movie_filter.png" alt="Imagen 3" width="200">
+</p>
+
+<p align="center">
+  <img src="./screenshoots/movie_rating.png" alt="Image 4" width="200" style="margin-right: 15px"/>
+  <img src="./screenshoots/user_collections.png" alt="Image 5" width="200" style="margin-right: 15px"/>
+  <img src="./screenshoots/collection_liked.png" alt="Image 6" width="200">
+</p>
+
 ## 🎥 Demo Video
 
 [Watch the demo on YouTube](https://youtu.be/AKlzW33MWp4)
@@ -71,8 +83,12 @@ Thank you to the [TMDB](https://www.themoviedb.org/) community for their amazing
 
 This app was inspired by applications like **Letterboxd**.
 
-Also huge thanks to [Helena Marti](https://www.behance.net/helenamartibarragan) for the amazing interface and logo design, make sure you follow her on [behance](https://www.behance.net/helenamartibarragan).
+Also huge thanks to [Helena Marti](https://www.behance.net/helenamartibarragan) for the amazing interface and logo design, make sure you follow her on [Behance](https://www.behance.net/helenamartibarragan).
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+This is a **demo app** developed for educational and portfolio purposes.  
+It uses the [TMDb API](https://www.themoviedb.org/documentation/api), which is subject to their [Terms of Use](https://www.themoviedb.org/documentation/api/terms-of-use).  
+This project is **not intended for commercial use**, and **is not affiliated with or endorsed by TMDb**.
